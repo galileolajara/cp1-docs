@@ -1,5 +1,5 @@
 ---
-sidebar_position: 7
+sidebar_position: 1
 ---
 
 # Enums, Structs and Unions
@@ -7,7 +7,7 @@ sidebar_position: 7
 In cp1, names of enum, struct or union must begin with an upper-case letter:
 ```cpone
 struct Animal[]; // A valid struct with no member variable.
-struct animal[]; // *COMPILE ERROR*, name of the struct must begin with upper-case letter
+struct animal[]; // *COMPILE ERROR*, name must begin with upper-case letter
 ```
 
 You can declare an enum, struct or union in one cp1 file and declare methods on another cp1 file:

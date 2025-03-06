@@ -57,7 +57,7 @@ main():intc {
    Dog.sit(dog!); // Declare a variable using the type in function argument
    dog.bark();
    a! = 1+2; // *COMPILE ERROR*, spaces are require before and after operators
-   names-can-have-dashes! = true; // Able to name variables, functions and structs with dashes!
+   names-can-have-dashes! = true; // Able to name with dashes!
    return 0;
 }
 ```

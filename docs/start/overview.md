@@ -58,7 +58,7 @@ main():intc { // The main function. intc is for C compatibility, use i32 elsewhe
    Greet();
    AskAge();
    
-   // Variable declaration. The dot '.' after the 'Dog' means this is not a pointer.
+   // Variable declaration. The dot '.' after the 'Dog' means 'dog' is not a pointer.
    var dog:Dog.;
    dog.sit();
 
@@ -67,10 +67,10 @@ main():intc { // The main function. intc is for C compatibility, use i32 elsewhe
    // instead of a local variable.
    .dog-count++;
 
-   // Another variable declaration. No dot '.' means dog2 is a pointer.
+   // Another variable declaration. No dot '.' means 'dog2' is a pointer.
    // By default, all variables are initialized to zero or null.
    var dog2:Dog;
-   dog2.sit(); // The program *WILL CRASH* because dog2 is pointing to null
+   dog2.sit(); // The program *WILL CRASH* because 'dog2' is pointing to null
    .dog-count++;
 
    return 0;

@@ -1,5 +1,5 @@
 ---
-sidebar_position: 11
+sidebar_position: 2
 ---
 
 # Where are the Pointers of C?
@@ -10,7 +10,7 @@ struct Position[x:i32, y:i32];
 var pos:Position; // A pointer to a 'Position'. Equivalent to 'struct Position* pos' in C.
 pos.x = 1; // Program *WILL CRASH* because 'position' is null
 
-// Adding '.' after the type will not make it a pointer.
+// Adding '.' after the type will NOT make it a pointer.
 // Below is equivalent to 'struct Position loc' in C.
 var loc:Position.;
 loc.x = 1; // Program will not crash because 'location' is not a pointer

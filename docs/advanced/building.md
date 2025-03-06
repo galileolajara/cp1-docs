@@ -1,5 +1,5 @@
 ---
-sidebar_position: 14
+sidebar_position: 5
 ---
 
 # Building Cp1 from source

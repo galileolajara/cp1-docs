@@ -5,7 +5,7 @@ sidebar_position: 10
 # Operators
 
 ## Structure-Of-Array Member Operator
-Cp1 have an operator that facilitates data-oriented programming. *More to follow soon*.
+Cp1 have an operator that facilitates data-oriented programming. *More to like this in the future*.
 ```cpone
 // @soa-field attribute enables the Structure-Of-Array Member Operator
 enum Player[]:u8 @soa-field(.player-data.);

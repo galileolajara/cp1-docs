@@ -1,5 +1,5 @@
 ---
-sidebar_position: 12
+sidebar_position: 4
 ---
 
 # Metaprogramming
@@ -11,7 +11,7 @@ To understand metaprograms, we need to know two basic parts of a metaprogram:
 require "LibCp1/stdout.cp1";
 using C1 = LibCp1;
 
-// Part 1: Code of the metaprogram
+// Part 1: The Metaprogram
 meta #MakeAFunction {
    using C1 = LibCp1;
    ${arg.name}() {
@@ -30,14 +30,14 @@ main():intc {
 }
 ```
 
-**Code of the metaprogram** contains the `meta` keyword, name of the metaprogram and the code. The code will effectively become a new cp1 file for every **usage of the metaprogram**. That's why we add 'using C1 = LibCp1' again even if we already have a line for it above. You would just type regular codes inside a metaprogram but you are able to use the `${...}` syntax of JavaScript's template literals to **insert some codes at compile-time**.
+**The metaprogram** contains the `meta` keyword, name of the metaprogram and the code. The code will effectively become a new cp1 file for every **usage of the metaprogram**. That's why we add 'using C1 = LibCp1' again even if we already have a line for it above. You would just type regular codes inside a metaprogram but you are able to use the `${...}` syntax of JavaScript's template literals to **insert some codes at compile-time**.
 
 
-**Usage of the metaprogram** contains a JSON object that will become the 'arg' variable in the **code of the metaprogram**. Hence, `${arg.name}` is replaced by "Greet", and so on and so forth.
+**Usage of the metaprogram** contains a JSON object that will become the 'arg' variable in **the metaprogram**. Hence, `${arg.name}` is replaced by "Greet".
 
-It is that simple! Metaprogramming of Cp1 aims to be the **easiest metaprogramming system** among today's modern languages.
+It is that simple. Metaprogramming of Cp1 aims to be the **easiest metaprogramming system** among today's modern languages.
 
-Advance usage of the code of the metaprogram is the following:
+Advance usage of a metaprogram is the following:
 ```cpone
 require "LibCp1/stdout.cp1";
 using C1 = LibCp1;
@@ -46,10 +46,12 @@ meta #MakeAFunction {
    using C1 = LibCp1;
    ${arg.name}() {
       C1.stdout{"${arg.message}\n"}
-#     if (os.platform == "win32") { // Part 3: A JavaScript code. Begins with an unindented '#'.
+#     if (os.platform == "win32") { // A JavaScript code. Begins with an unindented '#'.
          C1.stdout{"This metaprogram was compiled in Windows OS\n"}
 #     }
-      C1.stdout{"This metaprogram was compiled on ${Date.now()}\n"} // Date.now is a JS code.
+
+      // Date.now() is a JavaScript code.
+      C1.stdout{"This metaprogram was compiled on ${Date.now()}\n"}
    }
 }
 
@@ -65,7 +67,7 @@ main():intc {
 
 When you run `cp1-compile` with `-D` argument, there will be a key-value pair that's added to 'D' variable inside metaprograms' codes.
 ```cpone
-// hello.cp1
+// Filename: hello.cp1
 // Compile with the following command: cp1-compile -Dexcited=true -c hello.c hello.cp1
 
 require "LibCp1/stdout.cp1";
@@ -92,6 +94,44 @@ main():intc {
 }
 ```
 
+## Reflection in Metaprograms
+You can get information regarding the types and functions of your program by using `@reflection` on your metaprogram.
+```cpone
+require "LibCp1/stdout.cp1";
+using C1 = LibCp1;
+
+// Notice the @reflection below:
+meta #PrintAllTypesAndFunctions @reflection {
+   using C1 = LibCp1;
+   PrintAllTypesAndFunctions() {
+      C1.stdout{"Here are the list of types in this program:\n"}
+#     for (let type in cp1_refl) {
+#        if (type == "root") continue; // Don't print the root
+         C1.stdout{"- ${type}\n"}
+#     }
+      C1.stdout{"Here are the list of functions in this program:\n"}
+#     for (let type in cp1_refl) {
+#        if (type == "root") {
+#           for (let func in cp1_refl[type].functions) {
+               C1.stdout{"- ${func}\n"}
+#           }
+#        } else {
+#           for (let func in cp1_refl[type].functions) {
+               C1.stdout{"- ${type}.${func}\n"}
+#           }
+#        }
+#     }
+   }
+}
+
+#PrintAllTypesAndFunctions{}
+
+main():intc {
+   PrintAllTypesAndFunctions();
+   return 0;
+}
+```
+
 ## Nested Metaprograms
 It is possible to write metaprograms that have another metaprograms inside of it. Just make sure that you indent your metaprograms accordingly.
 ```cpone
@@ -105,8 +145,11 @@ meta #MakeAFunction {
    }
    meta #MakeAFunctionFor${arg.name} {
       using C1 = LibCp1;
-      \${arg.name}() { // '\$' means evaluate arg.name on #MakeAFunctionFor${arg.name} (later)
-         C1.stdout{"${arg.message}\n"} // Evaluate arg.message on #MakeAFunction (sooner)
+
+      // '\$' means evaluate arg.name on #MakeAFunctionFor${arg.name} (later)
+      \${arg.name}() {
+         // Evaluate arg.message on #MakeAFunction (sooner)
+         C1.stdout{"${arg.message}\n"}
       }
    }
    #MakeAFunctionFor${arg.name}{name:"${arg.name2}"}
@@ -147,7 +190,7 @@ main():intc {
        tmp.stdout-cstr("\n", 1u, c);
    tmp.stdout-end();
 
-   // Read cp1/include/LibCp1/stdout.cp1 to learn more!
+   // Read cp1/include/LibCp1/stdout.cp1 to learn more
    return 0;
 }
 ```
