@@ -135,6 +135,11 @@ main() {
 }
 ```
 
+## SizeOf Operator
+```cpone
+TODO
+```
+
 ## Ternary Operator *(planned)*
 There will be a support for ternary operator. Stay tuned!
 
