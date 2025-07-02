@@ -1,17 +1,16 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
-import path from 'path';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
   title: 'The Cp1 Programming Language',
-  tagline: 'A Minimalistic TypeScript for C',
-  favicon: 'img/favicon.ico',
+  tagline: 'The Minimalistic TypeScript for C',
+  favicon: 'img/favicon.png',
 
   // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
+  url: 'https://cp1-lang.org/',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
@@ -67,29 +66,29 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/cp1-social-card.png',
     colorMode: {
-      defaultMode: 'dark',
-      disableSwitch: true,
+       defaultMode: 'dark',
+       disableSwitch: true,
     },
     navbar: {
       title: 'C plus 1 Programming Language',
       logo: {
-        alt: 'Cp1 Logo',
-        src: 'img/logo.svg',
+        alt: 'Cp1 Programming Language',
+        src: 'img/cp1-lang-logo-all-white.png',
       },
       items: [
         {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Documentation',
+          position: 'right',
+          label: 'Getting Started',
         },
-        // {to: '/blog', label: 'Blog', position: 'left'},
         {
           href: 'https://github.com/galileolajara/cp1',
           label: 'GitHub',
           position: 'right',
+          className: 'navbar__item-github',
         },
       ],
     },
@@ -101,7 +100,7 @@ const config: Config = {
           items: [
             {
               label: 'What is Cp1?',
-              to: '/docs/introduction',
+              to: '/docs/start/introduction',
             },
             {
               label: 'Thanks',
@@ -116,6 +115,10 @@ const config: Config = {
         {
           title: 'Community',
           items: [
+            {
+              label: 'Stack Overflow',
+              href: 'https://stackoverflow.com/questions/tagged/cp1',
+            },
             {
               label: 'Discord',
               href: 'https://discord.gg/qBtunCNyUS',
@@ -136,7 +139,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} The Cp1 Programming Language, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} The Cp1 Programming Language, Inc.`,
     },
     prism: {
       theme: prismThemes.github,

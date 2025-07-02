@@ -2,6 +2,9 @@
 sidebar_position: 3
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 # Brief Overview
 
 ## Running a Cp1 program
@@ -22,6 +25,8 @@ cp1-compile -c hello.c examples/01-hello.cp1
 ```
 
 ## Parts of a Cp1 program
+<Tabs groupId="syntax-mode">
+<TabItem value="standard" label="Standard Syntax Mode">
 ```cpone
 require "LibCp1/stdout.cp1"; // Require. For including a cp1 file for compilation.
 using C1 = LibCp1; // Tells the compiler that we will refer to LibCp1 as C1.
@@ -40,7 +45,7 @@ meta #MakeAFunction {
 
 struct Dog[ // A declaration of struct 'Dog'
    sitting:bool, // A member variable
-   ] {
+] {
    sit(dog:this) { // A method named sit
       if dog.sitting {
          C1.stdout{"*does nothing*\n"}
@@ -76,3 +81,55 @@ main():intc { // The main function. intc is for C compatibility, use i32 elsewhe
    return 0;
 }
 ```
+</TabItem>
+<TabItem value="basic" label="Basic Syntax Mode">
+```cpone
+require "LibCp1/stdout.cp1"; // Require. For including a cp1 file for compilation.
+using C1 = LibCp1; // Tells the compiler that we will refer to LibCp1 as C1.
+
+// A metaprogram named '#MakeAFunction'
+meta #MakeAFunction:
+   using C1 = LibCp1;
+   ${arg.name}(): // A function declaration using arg.name as the function's name.
+      C1.stdout{"${arg.message}\n"} // A print function, to display a message.
+
+// Usage of the metaprogram above
+#MakeAFunction{name:"Greet",message:"Hello World"}
+#MakeAFunction{name:"AskAge",message:"How old are you?"}
+
+struct Dog[ // A declaration of struct 'Dog'
+   sitting:bool, // A member variable
+]:
+   sit(dog:this): // A method named sit
+      if dog.sitting:
+         C1.stdout{"*does nothing*\n"}
+      else:
+         dog.sitting = true;
+         C1.stdout{"*sits*\n"}
+
+var dog-count:i32; // A global variable
+
+main():intc: // The main function. intc is for C compatibility, use i32 elsewhere.
+   // Function calls to the metaprograms we created above
+   Greet()
+   AskAge()
+   
+   // Variable declaration. The dot '.' after the 'Dog' means 'dog' is not a pointer.
+   var dog:Dog.
+   dog.sit()
+
+   // Increment the 'dog' global variable. Notice the dot '.' before
+   // the variable name. The dot indicates we are accessing a global variable
+   // instead of a local variable.
+   .dog-count++
+
+   // Another variable declaration. No dot '.' means 'dog2' is a pointer.
+   // By default, all variables are initialized to zero or null.
+   var dog2:Dog
+   dog2.sit() // The program *WILL CRASH* because 'dog2' is pointing to null
+   .dog-count++
+
+   return 0
+```
+</TabItem>
+</Tabs>
