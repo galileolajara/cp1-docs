@@ -88,11 +88,11 @@ require "LibCp1/stdout.cp1"; // Require. For including a cp1 file for compilatio
 using C1 = LibCp1; // Tells the compiler that we will refer to LibCp1 as C1.
 
 // A metaprogram named '#MakeAFunction'
-meta #MakeAFunction:
+meta #MakeAFunction {
    using C1 = LibCp1;
    ${arg.name}(): // A function declaration using arg.name as the function's name.
       C1.stdout{"${arg.message}\n"} // A print function, to display a message.
-
+}
 // Usage of the metaprogram above
 #MakeAFunction{name:"Greet",message:"Hello World"}
 #MakeAFunction{name:"AskAge",message:"How old are you?"}

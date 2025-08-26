@@ -51,11 +51,11 @@ meta #MakeAFunction {
 <TabItem value="basic" label="Basic Syntax Mode">
 ```cpone
 // Let's create a metaprogram
-meta #MakeAFunction:
+meta #MakeAFunction {
    using C1 = LibCp1;
    ${arg.name}(): // A function declaration
       C1.stdout{"${arg.message}\n"}
-
+}
 // Use the metaprogram we created above
 #MakeAFunction{name:"Greet",message:"Hello World"}
 #MakeAFunction{name:"AskName",message:"What's your name?"}

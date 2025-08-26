@@ -41,11 +41,11 @@ require "LibCp1/stdout.cp1";
 using C1 = LibCp1;
 
 // Part 1: The Metaprogram
-meta #MakeAFunction:
+meta #MakeAFunction {
    using C1 = LibCp1;
    ${arg.name}():
       C1.stdout{"${arg.message}\n"}
-
+}
 // Part 2: Usage of the metaprogram 
 #MakeAFunction{name:"Greet",message:"Hello world"}
 #MakeAFunction{name:"AskAge",message:"What's your age?"}
@@ -100,7 +100,7 @@ main():intc {
 require "LibCp1/stdout.cp1";
 using C1 = LibCp1;
 
-meta #MakeAFunction:
+meta #MakeAFunction {
    using C1 = LibCp1;
    ${arg.name}():
       C1.stdout{"${arg.message}\n"}
@@ -110,7 +110,7 @@ meta #MakeAFunction:
 
       // Date.now() is a JavaScript code.
       C1.stdout{"This metaprogram was compiled on ${Date.now()}\n"}
-
+}
 #MakeAFunction{name:"Greet",message:"Hello world"}
 #MakeAFunction{name:"AskAge",message:"What's your age?"}
 
@@ -161,7 +161,7 @@ main():intc {
 require "LibCp1/stdout.cp1";
 using C1 = LibCp1;
 
-meta #MakeAFunction:
+meta #MakeAFunction {
    using C1 = LibCp1;
    ${arg.name}():
 #     if (D.excited) { // Here is where the -Dexcited=true went
@@ -169,7 +169,7 @@ meta #MakeAFunction:
 #     } else {
          C1.stdout{"${arg.message}\n"}
 #     }
-
+}
 #MakeAFunction{name:"Greet",message:"Hello world"}
 #MakeAFunction{name:"AskAge",message:"What's your age?"}
 
@@ -227,7 +227,7 @@ require "LibCp1/stdout.cp1";
 using C1 = LibCp1;
 
 // Notice the @reflection below:
-meta #PrintAllTypesAndFunctions @reflection:
+meta #PrintAllTypesAndFunctions @reflection {
    using C1 = LibCp1;
    PrintAllTypesAndFunctions():
       C1.stdout{"Here are the list of types in this program:\n"}
@@ -247,7 +247,7 @@ meta #PrintAllTypesAndFunctions @reflection:
 #           }
 #        }
 #     }
-
+}
 #PrintAllTypesAndFunctions{}
 
 main():intc:
@@ -299,21 +299,21 @@ main():intc {
 require "LibCp1/stdout.cp1";
 using C1 = LibCp1;
 
-meta #MakeAFunction:
+meta #MakeAFunction {
    using C1 = LibCp1;
    ${arg.name}():
       C1.stdout{"${arg.message}\n"}
 
-   meta #MakeAFunctionFor${arg.name}:
+   meta #MakeAFunctionFor${arg.name} {
       using C1 = LibCp1;
 
       // '\$' means evaluate arg.name on #MakeAFunctionFor${arg.name} (later)
       \${arg.name}():
          // Evaluate arg.message on #MakeAFunction (sooner)
          C1.stdout{"${arg.message}\n"}
-
+   }
    #MakeAFunctionFor${arg.name}{name:"${arg.name2}"}
-
+}
 #MakeAFunction{name:"Greet",message:"Hello world",name2:"Greet2"}
 #MakeAFunction{name:"AskAge",message:"What's your age?",name2:"AskAge2"}
 
